@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mural do 1 Real — um pixel por R$1</title>
+  <meta name="description" content="Pedi um carro pra 31 montadoras. Ninguém deu. Então estou vendendo 10.000 pixels a R$1. Escolha um bloco, ponha seu nome e fique no mural.">
+  <meta name="theme-color" content="#0c0b09">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Mural do 1 Real — um pixel por R$1">
+  <meta property="og:description" content="Pedi um carro pra 31 montadoras. Ninguém deu. Então estou vendendo pixels a R$1.">
+  <meta property="og:image" content="https://nexorabrai-debug.github.io/mural1real/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mural do 1 Real — um pixel por R$1">
+  <meta name="twitter:description" content="Pedi um carro pra 31 montadoras. Ninguém deu. Então estou vendendo pixels a R$1.">
+  <meta name="twitter:image" content="https://nexorabrai-debug.github.io/mural1real/assets/og.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">Mural do 1 Real</div>
+      <div class="topbar-note">10.000 blocos · R$1 cada</div>
+    </div>
+
+    <div class="intro">
+    <header class="hero">
+      <h1>Pedi um carro pra 31 montadoras. <em class="glow-text">Ninguém deu.</em></h1>
+      <p class="lede">Então abri o mural: dez mil pixels, um real cada. Você escolhe o bloco, põe seu nome e fica pra sempre.</p>
+    </header>
+
+
+    <div class="placar">
+    <div class="live-pill"><span class="live-dot"></span> ao vivo</div>
+    <section class="counters" aria-label="Placar ao vivo">
+      <div class="counter">
+        <span class="label">Vendidos</span>
+        <span class="value" id="stat-sold">—</span>
+      </div>
+      <div class="counter is-gold">
+        <span class="label">Arrecadado</span>
+        <span class="value is-money" id="stat-raised">—</span>
+      </div>
+      <div class="counter">
+        <span class="label">Restantes</span>
+        <span class="value" id="stat-left">—</span>
+      </div>
+    </section>
+    </div>
+    </div>
+
+    <div class="ticker" aria-label="Frases de quem já comprou um pixel">
+      <div class="ticker-fade"></div>
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
+
+    <div class="stage">
+      <div>
+        <section class="mural-card" aria-label="O mural">
+          <div class="mural-toolbar">
+            <p class="hint" id="grid-hint">Pinça = zoom · um dedo seleciona</p>
+            <div class="tools">
+              <button class="tool" type="button" id="btn-zoom-out" title="Diminuir" aria-label="Diminuir zoom">−</button>
+              <button class="tool" type="button" id="btn-zoom-in" title="Aumentar" aria-label="Aumentar zoom">+</button>
+              <button class="tool" type="button" id="btn-fit" title="Ver mural inteiro" aria-label="Ajustar à tela">⤢</button>
+              <button class="tool" type="button" id="btn-pan" title="Mover o mural" aria-label="Ferramenta de mover" aria-pressed="false">✋</button>
+            </div>
+          </div>
+          <div class="legend">
+            <span><i class="swatch livre"></i>Livre</span>
+            <span><i class="swatch vendido"></i>Vendido</span>
+            <span><i class="swatch sel"></i>Selecionado</span>
+            <span><i class="swatch trono"></i>Trono — em breve: leilão</span>
+          </div>
+          <div class="grid-wrap" id="grid-wrap">
+            <canvas id="mural" width="800" height="800" aria-label="Grade de 100 por 100 pixels"></canvas>
+            <div class="tooltip" id="tooltip" hidden></div>
+          </div>
+        </section>
+
+        <div class="buybar">
+          <div class="buybar-inner">
+            <div class="sum">
+              <b id="buy-total">Nada selecionado</b>
+              <span id="buy-sub">Toque nos blocos livres pra começar</span>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn ghost" type="button" id="btn-clear" disabled>Limpar</button>
+              <button class="btn" type="button" id="btn-buy" disabled>Comprar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side">
+        <h2>Quem gastou mais à toa</h2>
+        <p class="sub">O ranking dos que mais compraram pixels. Ego no lugar certo.</p>
+        <ol class="rank-list" id="rank-list"></ol>
+      </aside>
+    </div>
+
+    <section class="how">
+      <h2>Como funciona</h2>
+      <p class="sub">Três passos, um real, zero estoque.</p>
+      <div class="steps">
+        <div class="step"><b>1. Escolhe</b><span>Clica ou arrasta nos pixels livres. O centro dourado é o Trono e entra em leilão depois.</span></div>
+        <div class="step"><b>2. Assina</b><span>Nome ou apelido, uma frase curta se quiser, uma cor e um link opcional.</span></div>
+        <div class="step"><b>3. Paga R$1</b><span>Pix (ou Kiwify, quando o link estiver no ar). Depois do pagamento, o bloco entra no mural.</span></div>
+      </div>
+    </section>
+
+    <footer>
+      <p>O Mural do 1 Real é uma brincadeira e uma obra de arte digital colecionável. Não é investimento, rifa, título de propriedade de bem físico nem garantia de qualquer prêmio.</p>
+      <p>Depois que o bloco for publicado no mural, não há reembolso. Dúvidas: <a href="mailto:nexora.br.ai@gmail.com">nexora.br.ai@gmail.com</a>.</p>
+      <p>© <span id="year"></span> Mural do 1 Real · Renato</p>
+    </footer>
+  </div>
+
+  <div class="overlay" id="overlay" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <h2 id="sheet-title">Comprar pixels</h2>
+      <p class="total-line" id="sheet-total"></p>
+
+      <form id="buy-form" action="#" method="post" novalidate>
+        <div id="step-form">
+          <div class="field">
+            <label for="f-name">Nome ou apelido</label>
+            <input id="f-name" name="name" type="text" maxlength="32" required autocomplete="nickname" placeholder="Como você quer aparecer">
+          </div>
+          <div class="field">
+            <label for="f-phrase">Frase (opcional, até 80 caracteres)</label>
+            <input id="f-phrase" name="phrase" type="text" maxlength="80" placeholder="Uma linha pra ficar no mural">
+          </div>
+          <div class="field">
+            <label>Cor do bloco</label>
+            <div class="palette" id="palette"></div>
+          </div>
+          <div class="field">
+            <label for="f-link">Link (opcional)</label>
+            <input id="f-link" name="link" type="url" inputmode="url" placeholder="https://">
+          </div>
+          <div class="field">
+            <label for="f-email">Seu e-mail</label>
+            <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="pra confirmar o pedido">
+          </div>
+          <div class="actions">
+            <button class="btn ghost" type="button" id="btn-cancel">Cancelar</button>
+            <button class="btn" type="button" id="btn-to-pay">Ir pra o Pix</button>
+          </div>
+        </div>
+
+        <div id="step-pay" class="hidden">
+          <div class="paybox">
+            <h3>Pague via Pix</h3>
+            <p>O valor é <strong id="pay-amount"></strong>. Copie a chave, pague e depois envie o pedido. A chave ainda é um placeholder — troque em <code>js/config.js</code>.</p>
+            <div class="keycode">
+              <span id="pix-key"></span>
+              <button type="button" id="btn-copy-pix">Copiar</button>
+            </div>
+            <p>Depois de configurar a Kiwify, o checkout também pode ir por aqui:</p>
+            <div class="keycode">
+              <span id="kiwify-url"></span>
+              <a class="btn" id="btn-kiwify" href="#" target="_blank" rel="noopener" style="padding:6px 8px;font-size:0.75rem;text-decoration:none">Abrir</a>
+            </div>
+          </div>
+
+          <div class="order-code">
+            Código do pedido (guarde e envie se o formulário falhar)
+            <b id="order-code"></b>
+          </div>
+
+          <div class="actions">
+            <button class="btn ghost" type="button" id="btn-back">Voltar</button>
+            <button class="btn" type="submit" id="btn-send">Enviar pedido</button>
+          </div>
+          <p class="status" id="send-status"></p>
+          <p class="notice">O pedido (blocos, nome, frase, cor, e-mail e total) vai pra nexora.br.ai@gmail.com pelo FormSubmit. Na primeira vez, esse e-mail precisa confirmar o aviso do FormSubmit. Nenhum bloco entra no mural automaticamente: depois do Pix confirmado, atualizamos o <code>data/sold.json</code>.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
