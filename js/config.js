@@ -5,7 +5,7 @@
 window.MURAL_CONFIG = {
   PIX_KEY: "161.960.879-08",
   KIWIFY_URL: "https://pay.kiwify.com.br/COLE_SEU_LINK_AQUI",
-  FORMSUBMIT_ENDPOINT: "https://formsubmit.co/ajax/nexora.br.ai@gmail.com",
+  FORMSUBMIT_ENDPOINT: "https://formsubmit.co/ajax/6c18700219c85de7f1721d0c256f2dbe",
   CONTACT_EMAIL: "nexora.br.ai@gmail.com",
   GRID_SIZE: 100,
   BLOCK_PRICE_BRL: 1,
