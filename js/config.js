@@ -3,7 +3,7 @@
    Não commitar chave Pix real em repositório público, se for o caso:
    edite este arquivo só no deploy, ou troque depois do primeiro publish. */
 window.MURAL_CONFIG = {
-  PIX_KEY: "COLE_SUA_CHAVE_PIX_AQUI",
+  PIX_KEY: "161.960.879-08",
   KIWIFY_URL: "https://pay.kiwify.com.br/COLE_SEU_LINK_AQUI",
   FORMSUBMIT_ENDPOINT: "https://formsubmit.co/ajax/nexora.br.ai@gmail.com",
   CONTACT_EMAIL: "nexora.br.ai@gmail.com",
